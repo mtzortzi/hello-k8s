@@ -10,6 +10,12 @@ A lightweight demo showcasing containerization, Kubernetes deployment, and CI/CD
 - Local Kubernetes cluster powered by Minikube
 - CI/CD pipeline building and deploying on every push to `main`
 
+- Minikube is a tool that lets you run a mini Kubernetes cluster on your own computer—meaning it simulates a real Kubernetes environment with a single node (control plane + worker) using either a lightweight VM or Docker container.
+Great for learning: You can experiment with Kubernetes concepts—Pods, Deployments, Services—without needing cloud infra .
+Consistency: The same YAML you test locally can be deployed unchanged to a real cloud cluster later.
+Easy setup: Just run minikube start; you’re ready to go.
+
+
 ## ℹ️ Overview
 This project demonstrates how to go from Python code ➝ Docker container ➝ Kubernetes cluster — deploying a simple Flask app that responds “👋 Hello, Kubernetes!” when accessed.
 
