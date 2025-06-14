@@ -36,5 +36,15 @@ jobs:
     # Test the service
     - name: Smoke test "Hello Kubernetes"
       run: |
+        echo "Testing the service…"
         URL=$(minikube service hello-svc --url)
-        curl --max-time 10 $URL | grep "Hello, Kubernetes"
+        echo "Service URL: $URL"
+        RESPONSE=$(curl -s -w "\nHTTP_STATUS=%{http_code}\n" $URL)
+        echo "Response was:"
+        echo "$RESPONSE"
+        if echo "$RESPONSE" | grep -q "Hello, Kubernetes"; then
+          echo "✅ Success: Found expected response"
+        else
+          echo "::error::❌ Expected 'Hello, Kubernetes!' but didn't find it."
+          exit 1
+        fi
