@@ -68,6 +68,7 @@ Accessible via http://localhost:5000
    kubectl port-forward svc/hello-svc 5000:5000
    ```
 
+![CI/CD](https://github.com/mtzortzi/hello-k8s/actions/runs/15653879204)
 
   
 
