@@ -1,0 +1,40 @@
+name: CI/CD – Hello Kubernetes
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    # Start Minikube and set environment
+    - name: Set up Minikube
+      uses: medyagh/setup-minikube@latest
+
+    # Confirm cluster is active
+    - run: kubectl get pods -A
+
+    # Build Docker image directly into Minikube's Docker
+    - name: Build Docker image inside Minikube
+      run: |
+        minikube image build -t hello-k8s:latest .
+
+    # Apply Kubernetes manifests
+    - name: Deploy to Kubernetes
+      run: |
+        kubectl apply -f k8s/deployment.yaml
+        kubectl apply -f k8s/service.yaml
+        kubectl rollout status deployment/hello-deploy --timeout=60s
+
+    # Test the service
+    - name: Smoke test "Hello Kubernetes"
+      run: |
+        URL=$(minikube service hello-svc --url)
+        curl --max-time 10 $URL | grep "Hello, Kubernetes"
