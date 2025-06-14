@@ -55,12 +55,13 @@ Accessible via http://localhost:5000
 3. Verify Pods are running
    ```bash
    kubectl get pods
-  ```
+   ```
 
 4. Access the app
    ```bash
-kubectl port-forward svc/hello-svc 5000:5000
-```
+   kubectl port-forward svc/hello-svc 5000:5000
+   ```
+
 
   
 
